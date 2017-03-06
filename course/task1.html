@@ -67,13 +67,9 @@
      * @return {[type]}     [description]
      */
     let verify = function(val) {
-        let cnExp = /[^ -~]/g,
-            strLen = val.length,
-            cnList = val.match(cnExp),
-            // exceptCnStrLen = val.replace(cnExp, '').length,
-            actualLen = strLen + (cnList ? cnList.length : 0);
+        let actualLen = getStrLen(val);
 
-        console.log('Origin length', strLen, 'Cn', cnList, 'Input length', actualLen);
+        // console.log('Origin length', strLen, 'Cn', cnStr, 'Input length', actualLen);
         if (actualLen === 0) {
             return 'notnull';
         } else if (actualLen < 4 || actualLen > 16) {
@@ -82,6 +78,23 @@
 
         return 'right';
     };
+
+    // 更新的用 ES6 方法判断字符函数
+    let getStrLen = function(val) {
+        let strlen = 0;
+        for (let ch of val) {
+            if (isASCII(ch))
+                strlen += 1;
+            else
+                strlen += 2;
+        }
+        return strlen;
+    }
+
+    // 判断是否为 ASCII 码字符
+    let isASCII = function(c) {
+        return c.codePointAt(0) <= 0xFF;
+    }
 
     // 绑定按钮事件, 连接验证事件以及响应操作
     document.getElementById(btnId).addEventListener("click", function() {
