@@ -58,7 +58,7 @@
             'default': '必填，长度为 4~16 个字符',
             'right': '名称格式正确',
             'notnull': '姓名不能为空',
-            'toolong': '长度超过指定长度'
+            'toolong': '长度不符合指定长度'
         };
 
     /**
@@ -67,13 +67,13 @@
      * @return {[type]}     [description]
      */
     let verify = function(val) {
-        let cnExp = /[^-~]/g,
+        let cnExp = /[^ -~]/g,
             strLen = val.length,
             cnList = val.match(cnExp),
             // exceptCnStrLen = val.replace(cnExp, '').length,
             actualLen = strLen + (cnList ? cnList.length : 0);
 
-        console.log('Origin length', strLen, 'Cn length', cnList.length, 'Input length', actualLen);
+        console.log('Origin length', strLen, 'Cn', cnList, 'Input length', actualLen);
         if (actualLen === 0) {
             return 'notnull';
         } else if (actualLen < 4 || actualLen > 16) {
