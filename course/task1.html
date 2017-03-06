@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>表单（一）单个表单项的检验</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="../public/css/semantic.css" rel="stylesheet">
+
+    <style type="text/css">
+    	#namelabel {
+    		position: absolute;
+    		top: 3rem;
+    	}
+
+    	.notnull, .toolong {
+    		border-color: #f00 !important;
+    		color: #f00 !important;
+    	}
+
+    	.right {
+    		border-color: #39CC3B !important;
+    		color: #39CC3B !important;
+    	}
+
+    	.default {
+    		border-color: #A7A7A7 !important;
+    		color: #A7A7A7 !important;
+    	}
+    </style>
+</head>
+
+<body>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <h1 class="ui header">ife2017</h1>
+            </div>
+            <div class="sixteen wide column">
+                <h2 class="ui header">表单（一）单个表单项的检验</h2>
+				<div class="ui divider"></div>
+                <label>名称</label>
+                <div class="ui input focus">
+                    <input id="name" class="default" name="form" type="text" >
+                    <label id="namelabel" class="default" for="form">必填，长度为 4~16 个字符</label>
+                </div>
+                <button id="verifybtn" class="ui primary button">验证</button>
+            </div>
+        </div>
+    </div>
+
+	<script type="text/javascript">
+		let intputId = 'name',
+			labelId = 'namelabel',
+			btnId = 'verifybtn',
+			labelCodes = {
+				'default': '必填，长度为 4~16 个字符',
+				'right': '名称格式正确',
+				'notnull': '姓名不能为空',
+				'toolong': '长度超过指定长度'
+			};
+
+		/**
+		 * 验证函数
+		 * @param  {[type]} val [description]
+		 * @return {[type]}     [description]
+		 */
+		let verify = function(val) {
+			let cnExp = /[^-~]/g,
+				strLen = val.length,
+				cnList = val.match(cnExp),
+				// exceptCnStrLen = val.replace(cnExp, '').length,
+				actualLen = strLen + (cnList? cnList.length:0);
+
+			console.log('Origin length', strLen, 'Cn length', cnList.length, 'Input length', actualLen);
+			if (actualLen === 0) {
+				return 'notnull';
+			} else if ( actualLen < 4 || actualLen > 16 ) {
+				return 'toolong';
+			}
+
+			return 'right';
+		};
+
+		document.getElementById( btnId ).addEventListener("click", function(){
+		    let inputVal = document.getElementById( intputId ).value,
+		    	state = verify( inputVal );
+
+		    document.getElementById( labelId ).innerHTML = labelCodes[ state ];
+		    document.getElementById( labelId ).classList.remove( 'default', 'right', 'notnull', 'toolong' );
+		    document.getElementById( intputId ).classList.remove( 'default', 'right', 'notnull', 'toolong' );
+		    document.getElementById( labelId ).classList.add( state );
+		    document.getElementById( intputId ).classList.add( state );
+		});
+	</script>
+</body>
+
+</html>

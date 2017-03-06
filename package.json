@@ -1,0 +1,26 @@
+{
+  "name": "ife2017",
+  "version": "0.0.1",
+  "description": "The codes collection of ife2017.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hijiangtao/ife2017.git"
+  },
+  "keywords": [
+    "ife",
+    "fe"
+  ],
+  "author": "Joe Jiang",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/hijiangtao/ife2017/issues"
+  },
+  "homepage": "https://github.com/hijiangtao/ife2017#readme",
+  "dependencies": {
+    "http-server": "^0.9.0"
+  }
+}
