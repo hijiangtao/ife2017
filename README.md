@@ -9,7 +9,7 @@ Baidu前端技术学院 2017 年练习集合
 |---| ----- | -------- | ----- | ---------- |
 |1|[任务一：零基础HTML编码](http://ife.baidu.com/course/detail/id/90) | [Code](./course/task2.html) | [Demo](https://hijiangtao.github.io/ife2017/course/task2.html) | Note |
 |2|[任务二：零基础HTML及CSS编码（一）](http://ife.baidu.com/course/detail/id/92)| Code | Demo | Note |
-|3|[任务三：三栏式布局](http://ife.baidu.com/course/detail/id/94)| Code | Demo | Note |
+|3|[任务三：三栏式布局](http://ife.baidu.com/course/detail/id/94) | [Code](./course/task3.html) | [Demo](https://hijiangtao.github.io/ife2017/course/task3.html) | [Note](./notes/task3.md) |
 
 
 ## JS
