@@ -18,10 +18,10 @@
     </ul>
     <ul id="resort">
         <!-- 
-    <li>第一名：北京空气质量：<b>90</b></li>
-    <li>第二名：北京空气质量：<b>90</b></li>
-    <li>第三名：北京空气质量：<b>90</b></li>
-     -->
+	<li>第一名：北京空气质量：<b>90</b></li>
+	<li>第二名：北京空气质量：<b>90</b></li>
+	<li>第三名：北京空气质量：<b>90</b></li>
+	 -->
     </ul>
     <button id="sort-btn">排序</button>
     <script type="text/javascript">
@@ -32,16 +32,22 @@
      */
     function getData() {
         /*
-        coding here
-        */
-
-        /*
         data = [
           ["北京", 90],
           ["北京", 90]
           ……
         ]
         */
+        let lists = document.getElementById('source').getElementsByTagName('li'),
+        	values = document.getElementById('source').getElementsByTagName('b');
+        	data = [];
+
+        for (var i = lists.length - 1; i >= 0; i--) {
+        	let city = lists[i].innerHTML.substring(0,2),
+        		value = Number.parseInt( values[i].innerText );
+
+        	data.push([city, value])
+        }
 
         return data;
 
@@ -53,7 +59,9 @@
      * 返回一个排序后的数组
      */
     function sortAqiData(data) {
-
+    	return data.sort(function(a, b) {
+	        return a[1] - b[1];
+	    });
     }
 
     /**
@@ -62,7 +70,11 @@
      * 格式见ul中的注释的部分
      */
     function render(data) {
+    	let rawStr = data.map(obj => {
+    		`<li>第一名：${obj[0]}空气质量：<b>${obj[1]}</b></li>`
+    	}).join('');
 
+    	document.getElementById('resort').innerHTML = rawStr;
     }
 
     function btnHandle() {
@@ -74,7 +86,7 @@
     function init() {
 
         // 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数
-
+        document.getElementById('sort-btn').addEventListener('click', btnHandle);
     }
 
     init();
