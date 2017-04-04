@@ -17,7 +17,8 @@ Baidu前端技术学院 2017 年练习集合
 | ID | Title | Solution | Demo | Note |
 |---| ----- | -------- | ----- | ---------- |
 |1|[任务一：零基础JavaScript编码（一）](http://ife.baidu.com/course/detail/id/93)| Code | Demo | Note |
-|2|[任务二：零基础JavaScript编码（二）](http://ife.baidu.com/course/detail/id/91)| Code | Demo | Note |
+|2|[任务二：零基础JavaScript编码（二）](http://ife.baidu.com/course/detail/id/91)| [Code](./course/task4.html) | [Demo](https://hijiangtao.github.io/ife2017/course/task4.html) | [Note](./notes/task4.md) |
+|3|[任务三：零基础JavaScript编码（三）](http://ife.baidu.com/course/detail/id/98)| [Code](./course/task4.html) | [Demo](https://hijiangtao.github.io/ife2017/course/task4.html) | [Note](./notes/task4.md) |
 
 
 ## 综合实战
