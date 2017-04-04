@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>基础JavaScript练习(二)</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<link href="../public/css/semantic.css" rel="stylesheet">
+
+	<style type="text/css">
+		.i-normal {
+			float: left;
+			width: 1.3rem;
+			margin-right: .4rem;
+			background-color: gray;
+			transition: background-color .5s;
+		}
+
+		.i-checked {
+			background-color: green;
+		}
+		.i-current {
+			background-color: skyblue;
+		}
+		.i-change {
+			background-color: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="ui container">
+		<div class="ui grid">
+			<div class="sixteen wide column">
+				<h1 class="ui header">ife2017</h1>
+			</div>
+			<div class="sixteen wide column">
+				<h2 class="ui header">基础JavaScript练习</h2>
+				<div class="ui divider"></div>
+				<div class="ui form">
+					<div class="inline fields">
+						<div class="field">
+							<input id="val-item" type="number" name="item" placeholder="请输入一个数值">
+						</div>
+						<div class="field">
+							<button id="l-insert" class="positive ui button left">左侧插入</button>
+						</div>
+						<div class="field">
+							<button id="r-insert" class="positive ui button right">右侧插入</button>
+						</div>
+						<div class="field">
+							<button id="l-del" class="negative ui button left">左侧出队</button>
+						</div>
+						<div class="field">
+							<button id="r-del" class="negative ui button right">左侧出队</button>
+						</div>
+						<div class="field">
+							<button id="sort-btn" class="ui button">选择排序</button>
+						</div>
+					</div>
+					<div id="result-tags" class="inline fields">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	let dataset = [10, 3, 7, 12, 11, 30];
+
+	function render() {
+		let rawStr = dataset.map(obj => {
+			return `<div class="i-normal" style="height:${obj+20}px;margin-top:${100-obj}px;">${obj}</div>`;
+		}).join('');
+
+		document.getElementById('result-tags').innerHTML = rawStr;
+	}
+
+	function animationFrames(data) {
+		let list = document.getElementById('result-tags');
+
+		let timer = setInterval(function() {
+			let len = data.length;
+			let lists = list.getElementsByTagName('div'),
+					listlen = lists.length;
+			if (len === 0) {
+				for (let i = 0; i < listlen; i++) {
+					lists[i].classList.remove('i-change', 'i-current', 'i-checked');
+				}
+				clearTimeout(timer);
+				return ;
+			}
+
+			let item = data[0];
+
+			if (item['change']) {
+				let checkedItem = lists[ item['checked'] ],
+					currentItem = lists[ item['current'] ];
+				checkedItem.classList.add('i-change');
+				currentItem.classList.add('i-change');
+				
+				let checkedVal = Number.parseFloat(checkedItem.innerText),
+					currentVal = Number.parseFloat(currentItem.innerText);
+
+				checkedItem.innerHTML = currentVal;
+				currentItem.innerHTML = checkedVal;
+				checkedItem.setAttribute('style', `height:${currentVal+20}px;margin-top:${100-currentVal}px;`);
+				currentItem.setAttribute('style', `height:${checkedVal+20}px;margin-top:${100-checkedVal}px;`);
+
+				setTimeout(function() {
+					for (let i = 0; i < listlen; i++) {
+					lists[i].classList.remove('i-change', 'i-current', 'i-checked');
+				}
+				}, 200);
+			} else {
+				let checkedItem = lists[ item['checked'] ],
+					currentItem = lists[ item['current'] ];
+				checkedItem.classList.add('i-checked');
+				currentItem.classList.add('i-checked');
+			}
+
+			data.shift();
+		}, 500);
+	}
+
+	function sortandUpdate() {
+		let len = dataset.length,
+			minInd = 0, 
+			minVal = 0,
+			animationArr = [];
+
+		for (let i = 0; i < len; i++) {
+			minInd = i;
+			minVal = dataset[i];
+
+			for (let j = i+1; j < len; j++) {
+				animationArr.push({
+					'checked': minInd,
+					'current': j,
+					'change': false
+				});
+
+				if (dataset[j] < minVal) {
+					minInd = j;
+					minVal = dataset[j];
+				}
+			}
+
+			// 更新数组, 交换动画
+			if (minInd !== i) {
+				animationArr.push({
+					'checked': i,
+					'current': minInd,
+					'change': true
+				});
+				let temp = dataset[i];
+				dataset[i] = dataset[minInd];
+				dataset[minInd] = temp;
+			}
+		}
+
+		animationFrames(animationArr);
+	}
+
+	function insertItem(order) {
+		if (dataset.length === 60) {
+			alert('No more element can be added into current list, you should delete some before insert a new element.');
+		}
+
+		let val = document.getElementById('val-item').value,
+			list = document.getElementById('result-tags'),
+			fchild = list.firstChild,
+			lchild = list.lastChild;
+
+		if (isNaN(val)) {
+			alert('Illegal Input.');
+			return;
+		} else {
+			val = Number.parseFloat(val);
+			if (val < 10 || val > 100) {
+				alert(`${val} is out of range.`);
+			}
+		}
+
+		let ele = document.createElement('div');
+		ele.classList.add('i-normal');
+		ele.setAttribute('style', `height:${val+20}px;margin-top:${100-val}px;`);
+		ele.innerHTML = val;
+
+		if (order === 'right') {
+			dataset.push(val);
+			list.appendChild(ele);
+		} else {
+			dataset.unshift(val);
+			list.insertBefore(ele, fchild);
+		}
+	}
+
+	function delItem(order) {
+		let list = document.getElementById('result-tags');
+
+		if (order === 'right') {
+			let ele = dataset.pop();
+			list.removeChild(list.lastChild);
+			alert(ele);
+		} else {
+			let ele = dataset.shift();
+			list.removeChild(list.firstChild);
+			alert(ele);
+		}
+	}
+
+	function init() {
+		let btns = document.getElementsByClassName('button');
+
+		[].forEach.call(btns, function(btn) {
+			let order = 'left';
+			if (btn.classList.contains('right')) {
+				order = 'right';
+			}
+
+			if (btn.classList.contains('positive')) {
+				btn.addEventListener('click', function() {
+					insertItem(order);
+				});
+			} else if (btn.classList.contains('negative')) {
+				btn.addEventListener('click', function() {
+					delItem(order);
+				});
+			}
+		});
+
+		// 绑定排序按钮事件
+		document.getElementById('sort-btn').addEventListener('click', sortandUpdate);
+	}
+
+	render();
+	init();
+	</script>
+</body>
+
+</html>

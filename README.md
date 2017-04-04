@@ -20,7 +20,7 @@ Baidu前端技术学院 2017 年练习集合
 |2|[任务二：零基础JavaScript编码（二）](http://ife.baidu.com/course/detail/id/91)| [Code](./course/task4.html) | [Demo](https://hijiangtao.github.io/ife2017/course/task4.html) | [Note](./notes/task4.md) |
 |3|[任务三：零基础JavaScript编码（三）](http://ife.baidu.com/course/detail/id/98)| [Code](./course/task4.html) | [Demo](https://hijiangtao.github.io/ife2017/course/task4.html) | [Note](./notes/task4.md) |
 |4|[任务四：基础JavaScript练习（一）](http://ife.baidu.com/course/detail/id/103)| [Code](./course/task5.html) | [Demo](https://hijiangtao.github.io/ife2017/course/task5.html) | Note |
-
+|5|[任务五：基础JavaScript练习（二）](http://ife.baidu.com/course/detail/id/105)| [Code](./course/task6.html) | [Demo](https://hijiangtao.github.io/ife2017/course/task6.html) | [Note](./notes/task6.md) |
 
 
 ## 综合实战
