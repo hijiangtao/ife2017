@@ -8,25 +8,26 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<link href="../public/css/semantic.css" rel="stylesheet">
-
 	<style type="text/css">
-		.i-normal {
-			float: left;
-			width: 1.3rem;
-			margin-right: .4rem;
-			background-color: gray;
-			transition: background-color .5s;
-		}
-
-		.i-checked {
-			background-color: green;
-		}
-		.i-current {
-			background-color: skyblue;
-		}
-		.i-change {
-			background-color: red;
-		}
+	.i-normal {
+		float: left;
+		width: 1.3rem;
+		margin-right: .4rem;
+		background-color: gray;
+		transition: background-color .5s;
+	}
+	
+	.i-checked {
+		background-color: green;
+	}
+	
+	.i-current {
+		background-color: skyblue;
+	}
+	
+	.i-change {
+		background-color: red;
+	}
 	</style>
 </head>
 
@@ -83,23 +84,23 @@
 		let timer = setInterval(function() {
 			let len = data.length;
 			let lists = list.getElementsByTagName('div'),
-					listlen = lists.length;
+				listlen = lists.length;
 			if (len === 0) {
 				for (let i = 0; i < listlen; i++) {
 					lists[i].classList.remove('i-change', 'i-current', 'i-checked');
 				}
 				clearTimeout(timer);
-				return ;
+				return;
 			}
 
 			let item = data[0];
 
 			if (item['change']) {
-				let checkedItem = lists[ item['checked'] ],
-					currentItem = lists[ item['current'] ];
+				let checkedItem = lists[item['checked']],
+					currentItem = lists[item['current']];
 				checkedItem.classList.add('i-change');
 				currentItem.classList.add('i-change');
-				
+
 				let checkedVal = Number.parseFloat(checkedItem.innerText),
 					currentVal = Number.parseFloat(currentItem.innerText);
 
@@ -110,12 +111,12 @@
 
 				setTimeout(function() {
 					for (let i = 0; i < listlen; i++) {
-					lists[i].classList.remove('i-change', 'i-current', 'i-checked');
-				}
+						lists[i].classList.remove('i-change', 'i-current', 'i-checked');
+					}
 				}, 200);
 			} else {
-				let checkedItem = lists[ item['checked'] ],
-					currentItem = lists[ item['current'] ];
+				let checkedItem = lists[item['checked']],
+					currentItem = lists[item['current']];
 				checkedItem.classList.add('i-checked');
 				currentItem.classList.add('i-checked');
 			}
@@ -126,7 +127,7 @@
 
 	function sortandUpdate() {
 		let len = dataset.length,
-			minInd = 0, 
+			minInd = 0,
 			minVal = 0,
 			animationArr = [];
 
@@ -134,7 +135,7 @@
 			minInd = i;
 			minVal = dataset[i];
 
-			for (let j = i+1; j < len; j++) {
+			for (let j = i + 1; j < len; j++) {
 				animationArr.push({
 					'checked': minInd,
 					'current': j,
