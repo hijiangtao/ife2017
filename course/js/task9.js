@@ -7,8 +7,8 @@
 
 "use strict"
 
-let globj = function(id) {
-    let obj = new Object();
+var globj = function(id) {
+    var obj = new Object();
 
     // 创建渲染器
     obj.renderer = new THREE.WebGLRenderer({
@@ -16,6 +16,7 @@ let globj = function(id) {
         antialias: true
     });
     obj.renderer.setClearColor(0x666666);
+    obj.renderer.setSize( window.innerWidth, window.innerHeight );
 
     // 创建场景
     obj.scene = new THREE.Scene();
@@ -49,7 +50,7 @@ let globj = function(id) {
     }
 
     obj.generateCar = function() {
-        let carsize = [40, 20, 20],
+        var carsize = [40, 20, 20],
             tssize = [4, 1.5, 14, 20],
             carbody = new THREE.Mesh(new THREE.BoxGeometry(...carsize),
                 new THREE.MeshPhongMaterial({
@@ -84,15 +85,15 @@ let globj = function(id) {
     return obj;
 }
 
-let init = function() {
-    let id = 'mainCanvas',
+var init = function() {
+    var id = 'mainCanvas',
         canvas = document.getElementById(id);
     if (!(canvas.getContext && canvas.getContext('experimental-webgl'))) {
         alert('Your browser does not support WebGL.');
         return;
     }
 
-    let obj = new globj(id),
+    var obj = new globj(id),
         cube = new THREE.Mesh(new THREE.CubeGeometry(1, 2, 3),
             new THREE.MeshBasicMaterial({
                 color: 0xff0000
@@ -108,7 +109,7 @@ let init = function() {
     document.getElementsByTagName('select')[0].addEventListener('click', draw);
 
     function draw(e) {
-        let mode = e.target || null,
+        var mode = e.target || null,
             modeVal = mode.options[mode.selectedIndex].value || 'carmodel',
             wwidth = window.innerWidth,
             wheight = window.innerHeight;

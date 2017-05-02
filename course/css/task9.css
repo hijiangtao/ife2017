@@ -19,10 +19,10 @@ body {
     overflow-y: hidden;
 }
 
-#mainCanvas {
+/*#mainCanvas {
     width: 100%;
     height: 100%;
-}
+}*/
 
 select {
 	position: absolute;
