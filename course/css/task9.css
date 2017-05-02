@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+/**
+ * task9.css
+ * @authors Joe Jiang (hijiangtao@gmail.com)
+ * @date    2017-05-02 10:18:08
+ * @version $Id$
+ */
+
+
+/* reset */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+}
+
+#mainCanvas {
+    width: 100%;
+    height: 100%;
+}
+
+select {
+	position: absolute;
+	left: 1rem;
+	top: 1rem;
+	z-index: 100;
+}
