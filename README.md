@@ -32,6 +32,6 @@ Baidu前端技术学院 2017 年练习集合
 |---| ----- | -------- | ----- | ---------- |
 |1|[任务一：表单（一）单个表单项的检验](http://ife.baidu.com/course/detail/id/97) | [Code](./course/task1.html) | [Demo](https://hijiangtao.github.io/ife2017/course/task1.html) | [Note](./notes/task1.md) |
 |2|[WebGL No.1 - Three.js 入门](http://ife.baidu.com/course/detail/id/18) | [Code](./course/task9.html) | [Demo](https://hijiangtao.github.io/ife2017/course/task9.html) | Note |
-
+|3|[WebGL No. 2 - 光与影](http://ife.baidu.com/course/detail/id/28) | [Code](./course/task10.html) | [Demo](https://hijiangtao.github.io/ife2017/course/task10.html) | Note |
 
 * 有些内容很基础, 便不再提供代码和示例.
