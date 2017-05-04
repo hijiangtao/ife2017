@@ -1,7 +1,7 @@
 /**
- * task10.js
+ * task11.js
  * @authors Joe Jiang (hijiangtao@gmail.com)
- * @date    2017-05-03 15:56:27
+ * @date    2017-05-03 23:36:00
  * @version $Id$
  */
 
@@ -23,11 +23,6 @@ let globj = function(id) {
     // 创建场景
     obj.scene = new THREE.Scene();
 
-    /**
-     * 创建照相机
-     * @PerspectiveCamera https://threejs.org/docs/index.html#api/cameras/PerspectiveCamera
-     * @OrthographicCamera https://threejs.org/docs/index.html#api/cameras/OrthographicCamera
-     */
     obj.setCamera = function(type, props, position) {
         if (type === 'perspective') {
             this.camera = new THREE.PerspectiveCamera(...props);
@@ -58,14 +53,13 @@ let globj = function(id) {
         // this.scene.add(this.dlight);
 
         // 聚光灯
-        this.slight = new THREE.SpotLight(0xffffff, 1.8, 100);
-        
-        this.slight.position.set(-25, 40, 30);
+        this.slight = new THREE.SpotLight(0xffffff, 1.8, 150);
+
+        this.slight.position.set(-30, 25, 38);
         this.slight.target = this.carbody;
         // this.slight.shadow.camera.position.set(-25, 25, 55);
         this.slight.castShadow = true;
 
-        this.slight.shadowDarkness = 0.5;
         // this.slight.shadow.camera.near = 1;
         // this.slight.shadow.camera.far = 100;
         // this.slight.shadow.camera.fov = 30;
@@ -73,12 +67,12 @@ let globj = function(id) {
         this.slight.shadow.mapSize.height = 1024; //阴影精度
         // this.slight.shadow.camera.visible = true
         // this.slight.shadowCameraVisible = true;
-        
-        this.slight.shadow.update( this.slight );
+
+        this.slight.shadow.update(this.slight);
         this.scene.add(this.slight);
 
         // 添加阴影
-        var helper = new THREE.CameraHelper( this.slight.shadow.camera );
+        var helper = new THREE.CameraHelper(this.slight.shadow.camera);
 
         this.scene.add(helper);
         this.scene.add(new THREE.SpotLightHelper(this.slight));
@@ -87,26 +81,25 @@ let globj = function(id) {
 
     obj.generateCar = function() {
         let carsize = [40, 20, 20],
-            tssize = [4, 1.5, 14, 20],
-            carcircle = [];
+            tssize = [4, 1.5, 18, 24];
 
+        this.carcircle = [];
         this.carbody = new THREE.Mesh(new THREE.BoxGeometry(...carsize),
             new THREE.MeshStandardMaterial({
                 color: 0xffffff
             }));
         this.carbody.position.set(0, carsize[1] * 0.25, 0);
         this.carbody.castShadow = true;
-        // this.carbody.receiveShadow = true;
 
         for (let i = 0; i < 4; i++) {
-            carcircle.push(new THREE.Mesh(new THREE.TorusGeometry(...tssize),
+            this.carcircle.push(new THREE.Mesh(new THREE.TorusGeometry(...tssize),
                 new THREE.MeshStandardMaterial({
                     color: 0xffffff
                 })));
-            carcircle[i].position.set(i % 2 === 0 ? carsize[0] * 0.3 : -carsize[0] * 0.3, -carsize[1] * 0.25, i < 2 ? carsize[2] * 0.5 : -carsize[2] * 0.5);
-            carcircle[i].castShadow = true;
-            // carcircle[i].receiveShadow = true;
-            this.scene.add(carcircle[i]);
+            this.carcircle[i].position.set(i % 2 === 0 ? carsize[0] * 0.3 : -carsize[0] * 0.3, -carsize[1] * 0.25, i < 2 ? carsize[2] * 0.5 : -carsize[2] * 0.5);
+            this.carcircle[i].castShadow = true;
+            this.carcircle[i].material.needsUpdate = true;
+            this.scene.add(this.carcircle[i]);
         }
 
         this.scene.add(this.carbody);
@@ -116,15 +109,53 @@ let globj = function(id) {
         let width = 150,
             height = 150;
 
-        this.plane = new THREE.Mesh(new THREE.PlaneGeometry(width, height, 32, 32),
-            new THREE.MeshLambertMaterial({
-                color: 0x4a9a5a
-            }));
+        this.plane = new THREE.Mesh(new THREE.PlaneGeometry(width, height, 32, 32));
         this.plane.rotation.x = -Math.PI * 0.5;
         this.plane.position.set(0, -10.5, 20);
         this.plane.receiveShadow = true;
+        this.plane.material.needsUpdate = true;
 
         this.scene.add(this.plane);
+    }
+
+    obj.addMaterial = function() {
+        let loader = new THREE.TextureLoader();
+
+        loader.load(
+        	'/course/img/box.jpg',
+        	function(texture) {
+        		texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+        		texture.repeat.set(5, 5);
+        		obj.cartxture = new THREE.MeshLambertMaterial({ map: texture });
+        		obj.carbody.material = obj.cartxture;
+        		obj.render();
+        	},
+        	{}, {}
+        );
+        loader.load(
+        	'/course/img/road.jpg',
+        	function(texture) {
+        		texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+        		texture.repeat.set(5, 5);
+        		obj.roadtxture = new THREE.MeshLambertMaterial({ map: texture });
+        		obj.plane.material = obj.roadtxture;
+        		obj.render();
+        	},
+        	{}, {}
+        );
+        loader.load(
+        	'/course/img/bg.jpg',
+        	function(texture) {
+        		texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+        		texture.repeat.set(20,20);
+        		obj.tyretxture = new THREE.MeshLambertMaterial({ map: texture });
+        		for (let i = 0, len=obj.carcircle.length; i < len; i++) {
+        			obj.carcircle[i].material = obj.tyretxture;
+        		}
+        		obj.render();
+        	},
+        	{}, {}
+        );
     }
 
     obj.render = function() {
@@ -155,6 +186,7 @@ let init = function() {
         ratio = wwidth / wheight;
 
     obj.setCamera('ortho', [-wwidth * 0.04, wwidth * 0.04, wheight * 0.04, -wheight * 0.04, 1, 1000], [30, 15, 25]);
+    obj.addMaterial();
     obj.generateCar();
     obj.generatePlane();
     obj.setLight();
