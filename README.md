@@ -35,5 +35,6 @@ Baidu前端技术学院 2017 年练习集合
 |3|[WebGL No. 2 - 光与影](http://ife.baidu.com/course/detail/id/28) | [Code](./course/task10.html) | [Demo](https://hijiangtao.github.io/ife2017/course/task10.html) | Note |
 |4|[WebGL No. 3 - 材质与纹理](http://ife.baidu.com/course/detail/id/32) | [Code](./course/task11.html) | [Demo](https://hijiangtao.github.io/ife2017/course/task11.html) | Note |
 |5|[WebGL No. 4 - 照相机和交互控制](http://ife.baidu.com/course/detail/id/33) | [Code](./course/task12.html) | [Demo](https://hijiangtao.github.io/ife2017/course/task12.html) | Note |
+|6|[WebGL No.5 - 动画](http://ife.baidu.com/course/detail/id/34) | [Code](./course/task13.html) | [Demo](https://hijiangtao.github.io/ife2017/course/task13.html) | Note |
 
 * 有些内容很基础, 便不再提供代码和示例.
