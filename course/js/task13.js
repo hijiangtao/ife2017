@@ -89,10 +89,10 @@ let globj = function(id) {
         this.scene.add(this.slight);
 
         // 添加阴影
-        var helper = new THREE.CameraHelper(this.slight.shadow.camera);
+        // var helper = new THREE.CameraHelper(this.slight.shadow.camera);
 
-        this.scene.add(helper);
-        this.scene.add(new THREE.SpotLightHelper(this.slight));
+        // this.scene.add(helper);
+        // this.scene.add(new THREE.SpotLightHelper(this.slight));
     }
 
     obj.generateCar = function() {
@@ -116,8 +116,8 @@ let globj = function(id) {
 
         this.scene.add(this.carbody);
 
-        this.carhelper = new THREE.BoxHelper(this.carbody, 0xff0000);
-        this.scene.add(this.carhelper)
+        // this.carhelper = new THREE.BoxHelper(this.carbody, 0xff0000);
+        // this.scene.add(this.carhelper)
     }
 
     obj.generatePlane = function() {
@@ -185,22 +185,19 @@ let globj = function(id) {
     			// move car
     			obj.carbody.position.x += obj.props.speed*Math.cos(obj.props.angle%(Math.PI*2));
     			obj.carbody.position.z += obj.props.speed*Math.sin(obj.props.angle%(Math.PI*2));
-    			// for (let x in obj.carcircle) {
-    			// 	obj.carcircle[x].position.x += obj.props.speed*10;
-    			// }
+
+    			for (let i = 0, len = obj.carcircle.length; i < len; i++) {
+                    obj.carcircle[i].rotation.z -= obj.props.speed/5.5;
+                }
     		} else {
     			// rotate car
-    			obj.carbody.rotation.y = (obj.carbody.rotation.y + obj.props.yrotate) % (Math.PI * 2);
-    			obj.props.angle -= obj.props.yrotate;
+    			obj.carbody.rotation.y = (obj.carbody.rotation.y - obj.props.yrotate) % (Math.PI * 2);
+    			obj.props.angle += obj.props.yrotate;
     			obj.props.yrotate = 0;
-
-    			// for (let x in obj.carcircle) {
-    			// 	obj.carcircle[x].rotation.y += obj.props.yrotate*0.1;
-    			// }
     		}
     	}
 
-    	obj.carhelper.update();
+    	// obj.carhelper.update();
     	obj.render();
 
         return requestAnimationFrame(obj.animate);
@@ -223,7 +220,6 @@ let globj = function(id) {
         obj.controls.handleResize();
 
         obj.render();
-
     }
 
     return obj;
@@ -243,7 +239,7 @@ let init = function() {
         ratio = wwidth / wheight;
 
     // window.addEventListener('resize', obj.onWindowResize, false);
-    obj.setCamera('perspective', [60, wwidth / wheight, 1, 1000], [35, 18, 32]);
+    obj.setCamera('perspective', [60, wwidth / wheight, 1, 1000], [-35, 18, 32]);
     obj.addMaterial();
     obj.generateCar();
     obj.generatePlane();
@@ -263,11 +259,11 @@ let init = function() {
                 break;
             case 'A':
             case 'a':
-            	obj.props.yrotate = -0.1;
+            	obj.props.yrotate = 0.1;
                 break;
             case 'D':
             case 'd':
-            	obj.props.yrotate = 0.1;
+            	obj.props.yrotate = -0.1;
                 break;
             case 'S':
             case 's':
